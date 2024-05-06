@@ -71,7 +71,7 @@ namespace Food.Core.Securities.Services.Implements
             return new SecurityEntity()
             {
                 TokenType = "Bearer",
-                AccesTocken = token,
+                AccesToken = token,
                 ExpireOn = expireDateTime
             };
         }

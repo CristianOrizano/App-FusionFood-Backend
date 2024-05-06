@@ -68,7 +68,6 @@ builder.Services.AddSwaggerGen();
 
 
 
-
 //_____________ PasswordHasher
 builder.Services.Configure<PasswordHasherOptions>(options =>
 {
@@ -145,6 +144,11 @@ builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Developed-By", "CRISTIAN");
+    await next.Invoke();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -153,7 +157,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//______CORS
+string[]? corsOrigins = builder.Configuration.GetSection("CorsOrigins:urls").Get<String[]>();
 
+app.UseCors(options =>
+{
+    options
+    .WithOrigins(corsOrigins!)
+     .AllowAnyHeader()
+    //.AllowAnyOrigin()   permite cualquier origen
+    .AllowAnyMethod();    // Permite cualquier método HTTP
+
+});
 
 
 //______________ Usar Middleware

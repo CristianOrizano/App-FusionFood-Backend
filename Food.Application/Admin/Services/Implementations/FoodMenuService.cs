@@ -94,7 +94,12 @@ namespace Food.Application.Admin.Services.Implementations
 
         public async Task<FoodMenuDto> FindByIdAsync(int id)
         {
-            FoodMenu? foodMenu = await _foodRepository.FindByIdAsync(id) ??
+            List<Expression<Func<FoodMenu, object>>> includes = new List<Expression<Func<FoodMenu, object>>>
+            {
+                x => x.Categoria,
+            };
+
+            FoodMenu? foodMenu = await _foodRepository.FindByIdAsync(x=>x.Id==id, includes) ??
                       throw new NotFoundCoreException($"foodMenu no encontrada{id}");
 
             if (foodMenu is null)

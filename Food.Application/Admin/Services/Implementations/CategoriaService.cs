@@ -75,7 +75,8 @@ namespace Food.Application.Admin.Services.Implementations
 
             Expression<Func<Categoria, bool>> predicate = x =>
                 (string.IsNullOrWhiteSpace(filter.Nombre) || x.Nombre.ToUpper().Contains(filter.Nombre.ToUpper()))
-             && (string.IsNullOrWhiteSpace(filter.Descripcion) || x.Descripcion.ToUpper().Contains(filter.Descripcion.ToUpper()));
+             && (string.IsNullOrWhiteSpace(filter.Descripcion) || x.Descripcion.ToUpper().Contains(filter.Descripcion.ToUpper()))
+             &&  (!filter.Estado.HasValue || x.Estado == filter.Estado);
 
             var response = await _categoriaRepository.FindAllPaginatedAsync(paging, predicate);
 
