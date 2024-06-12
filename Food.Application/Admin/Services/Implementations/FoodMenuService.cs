@@ -77,17 +77,41 @@ namespace Food.Application.Admin.Services.Implementations
 
             Expression<Func<FoodMenu, bool>> predicate = x =>
              (string.IsNullOrWhiteSpace(filter.Descripcion) || x.Descripcion.ToUpper().Contains(filter.Descripcion.ToUpper()))
+             && (string.IsNullOrWhiteSpace(filter.Nombre) || x.Nombre.ToUpper().Contains(filter.Nombre.ToUpper()))
               && (filter.IdCategoria == 0 || x.IdCategoria == filter.IdCategoria)
                && (filter.Precio == 0 || x.Precio == filter.Precio);
+            /* && (!filter.FechaEmisionDesde.HasValue || x.Expediente.FechaRegistro.Date >= filter.FechaEmisionDesde.Value.Date)
+             && (!filter.FechaEmisionHasta.HasValue || x.Expediente.FechaRegistro.Date <= filter.FechaEmisionHasta.Value.Date);*/
 
             List<Expression<Func<FoodMenu, object>>> includes = new List<Expression<Func<FoodMenu, object>>>
             {
                 x => x.Categoria,
             };
+            Func<IQueryable<FoodMenu>, IOrderedQueryable<FoodMenu>> orderBy = null;
+            if (filter.SortOrderPrecio?.ToLower() == "asc")
+            {
+                orderBy = q => q.OrderBy(x => x.Precio);
+            }
+            else if (filter.SortOrderPrecio?.ToLower() == "desc")
+            {
+                orderBy = q => q.OrderByDescending(x => x.Precio);
+            }
 
-            /* && (!filter.FechaEmisionDesde.HasValue || x.Expediente.FechaRegistro.Date >= filter.FechaEmisionDesde.Value.Date)
-             && (!filter.FechaEmisionHasta.HasValue || x.Expediente.FechaRegistro.Date <= filter.FechaEmisionHasta.Value.Date);*/
-            var response = await _foodRepository.FindAllPaginatedAsync(paging, predicate,null,includes);
+            // Ordenación por nombre
+            if (filter.SortOrderNombre?.ToLower() == "asc")
+            {
+                orderBy = orderBy == null
+                    ? (q => q.OrderBy(x => x.Nombre))
+                    : (q => orderBy(q).ThenBy(x => x.Nombre));
+            }
+            else if (filter.SortOrderNombre?.ToLower() == "desc")
+            {
+                orderBy = orderBy == null
+                    ? (q => q.OrderByDescending(x => x.Nombre))
+                    : (q => orderBy(q).ThenByDescending(x => x.Nombre));
+            }
+
+            var response = await _foodRepository.FindAllPaginatedAsync(paging, predicate, orderBy, includes);
 
             return _mapper.Map<PageResponse<FoodMenuDto>>(response);
         }

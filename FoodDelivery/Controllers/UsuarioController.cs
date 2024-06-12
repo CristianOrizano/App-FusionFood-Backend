@@ -1,5 +1,8 @@
-﻿using Food.Application.Admin.Dtos.Usuarios;
+﻿using Food.Application.Admin.Dtos.Categorias;
+using Food.Application.Admin.Dtos.Usuarios;
 using Food.Application.Admin.Services;
+using Food.Application.Admin.Services.Implementations;
+using Food.Core.Paginations;
 using FoodDelivery.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -20,12 +23,7 @@ namespace FoodDelivery.Controllers
         }
 
 
-        // GET: api/<UsuarioController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+     
         // POST api/values
         [HttpPost("Login")]
         [AllowAnonymous] //no requiere auth del token
@@ -47,6 +45,12 @@ namespace FoodDelivery.Controllers
             UsuarioDto user = await _userService.CreateAsync(userSave);
 
             return TypedResults.CreatedAtRoute(user);
+        }
+
+        [HttpGet("busquedaPaginada")]
+        public async Task<PageResponse<UsuarioDto>> FindAllPaginated([FromQuery] PageRequest<UsuarioFilterDto> request)
+        {
+            return await _userService.FindAllPaginatedAsync(request);
         }
 
 

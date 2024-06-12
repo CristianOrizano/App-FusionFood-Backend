@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Food.Infraestructura\Food.Infraestructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Admin\Dtos\Clientes\Validators\" />
+  </ItemGroup>
+
 </Project>

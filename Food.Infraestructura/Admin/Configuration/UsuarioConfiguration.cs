@@ -18,6 +18,7 @@ namespace Food.Infraestructura.Admin.Configuration
             builder.Property(x => x.Id).HasColumnName("id");
             builder.Property(x => x.Nombre).HasColumnName("nombre");
             builder.Property(x => x.Apellido).HasColumnName("apellido");
+            builder.Property(x => x.Nimagen).HasColumnName("nimagen");
             builder.Property(x => x.Email).HasColumnName("email");
             builder.Property(x => x.Username).HasColumnName("username");
             builder.Property(x => x.Password).HasColumnName("password");

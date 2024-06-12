@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Food.Application.Admin.Dtos.Categorias;
+using Food.Core.Paginations;
 using Food.Domain.Admin.Models;
+using Food.Domain.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,8 @@ namespace Food.Application.Admin.Dtos.Usuarios.Profiles
             CreateMap<Usuario, UsuarioSaveDto>().ReverseMap();
             CreateMap<Usuario, UserSecurityDto>().ReverseMap();
 
+            //pagination
+            CreateMap<PagedResult<Usuario>, PageResponse<UsuarioDto>>();
         } 
 
     }

@@ -4,6 +4,7 @@ using Food.Application.Admin.Services;
 using Food.Application.Admin.Services.Implementations;
 using Food.Core.Paginations;
 using FoodDelivery.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace FoodDelivery.Controllers
 
 
         // GET: api/<FoodMenuController>
+   
         [HttpGet]
         public async Task<IEnumerable<FoodMenuDto>> Get()
         {
@@ -30,6 +32,7 @@ namespace FoodDelivery.Controllers
         }
 
         // GET api/<FoodMenuController>/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FoodMenuDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -63,7 +66,7 @@ namespace FoodDelivery.Controllers
             return await _foodService.DisabledAsync(id);
 
         }
-
+        [AllowAnonymous]
         [HttpGet("busquedaPaginada")]
         public async Task<PageResponse<FoodMenuDto>> FindAllPaginated([FromQuery] PageRequest<FoodMenuFilterDto> request)
         {

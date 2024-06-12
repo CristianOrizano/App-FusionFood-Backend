@@ -23,6 +23,7 @@ namespace FoodDelivery.Controllers
         }
 
         // GET: api/<CategoriaController>
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<CategoriaDto>> Get()
         {
@@ -36,6 +37,7 @@ namespace FoodDelivery.Controllers
 
 
         // GET api/<CategoriaController>/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CategoriaDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -77,7 +79,7 @@ namespace FoodDelivery.Controllers
             return await _categoriaService.DisabledAsync(id);
 
         }
-
+       
         [HttpGet("busquedaPaginada")]
         public async Task<PageResponse<CategoriaDto>> FindAllPaginated([FromQuery] PageRequest<CategoriaFilterDto> request)
         {

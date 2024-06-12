@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Food.Application.Admin.Services
 {
-    public interface ICategoriaService: ICrudService<CategoriaDto,CategoriaSaveDto,int>, IPageService<CategoriaDto, CategoriaFilterDto>
+    public interface ICategoriaService : ICrudService<CategoriaDto,CategoriaSaveDto,int>, IPageService<CategoriaDto, CategoriaFilterDto>
     {
         Task<IReadOnlyList<CategoriaSimpleDto>> listaSimpleCateoria();
         Task<ActionResult<object>> guadarCategoriaFood(CategoriaFoodSaveDto save);
