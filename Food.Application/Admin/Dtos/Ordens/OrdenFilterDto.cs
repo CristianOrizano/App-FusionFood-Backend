@@ -10,6 +10,7 @@ namespace Food.Application.Admin.Dtos.Ordens
     {
         public DateTime? FechaOrden { get; set; }
         public string? TipoPago { get; set; }
+        public int idCliente { get; set; }
         public int Estado { get; set; }
 
     }

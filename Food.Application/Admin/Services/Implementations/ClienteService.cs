@@ -80,7 +80,7 @@ namespace Food.Application.Admin.Services.Implementations
             Expression<Func<Cliente, bool>> predicate = x =>
                 (string.IsNullOrWhiteSpace(filter.Nombres) || x.Nombres.ToUpper().Contains(filter.Nombres.ToUpper()))
              && (string.IsNullOrWhiteSpace(filter.Apellidos) || x.Apellidos.ToUpper().Contains(filter.Apellidos.ToUpper()))
-              && (string.IsNullOrWhiteSpace(filter.Correo) || x.Apellidos.ToUpper().Contains(filter.Correo.ToUpper()))
+              && (string.IsNullOrWhiteSpace(filter.Correo) || x.Correo.ToUpper().Contains(filter.Correo.ToUpper()))
                && (filter.Telefono == 0 || x.Telefono == filter.Telefono)
              && (!filter.Estado.HasValue || x.Estado == filter.Estado)
             &&  (filter.FechaNacimiento == DateTime.MinValue || x.FechaNacimiento.Date == filter.FechaNacimiento.Date);

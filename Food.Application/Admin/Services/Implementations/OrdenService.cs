@@ -85,6 +85,7 @@ namespace Food.Application.Admin.Services.Implementations
             Expression<Func<Orden, bool>> predicate = x =>
                 (!filter.FechaOrden.HasValue || x.FechaOrden.Date >= filter.FechaOrden.Value.Date)
              && (string.IsNullOrWhiteSpace(filter.TipoPago) || x.TipoPago.ToUpper().Contains(filter.TipoPago.ToUpper()))
+             && (filter.idCliente == 0 || x.Cliente.Id == filter.idCliente)
              && (filter.Estado == 0 || x.Estado == filter.Estado);
 
             List<Expression<Func<Orden, object>>> includes = new List<Expression<Func<Orden, object>>>

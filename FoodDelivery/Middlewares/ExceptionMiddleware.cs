@@ -7,6 +7,10 @@ namespace FoodDelivery.Middlewares
 {
     public class ExceptionMiddleware : IMiddleware
     {
+        /*El middleware son funciones que tienen acceso al objeto de solicitud (req), el objeto de respuesta (res),
+         * y la siguiente función de middleware en el ciclo de solicitud/respuesta. Se pueden usar para realizar una variedad de tareas, 
+         * como parsear el cuerpo de la solicitud, manejar sesiones, autenticar usuarios, y más.*/
+
         //se encarga de capturar excepciones que se produzcan durante el procesamiento de una solicitud HTTP y
         //responder con una respuesta de error JSON adecuada en función del tipo de excepción.
 
