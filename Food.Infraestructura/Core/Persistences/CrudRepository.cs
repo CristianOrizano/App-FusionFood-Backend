@@ -132,7 +132,7 @@ namespace Food.Infraestructura.Core.Persistences
             switch (_context.Entry(entity).State)
             {
                 case EntityState.Detached:
-                    _context.Set<T>().Add(entity);
+                    _context.Set<T>().Add(entity); //  _table.Add(entity);
                     break;
                 case EntityState.Modified:
                     _context.Set<T>().Update(entity);

@@ -107,7 +107,8 @@ namespace Food.Application.Admin.Services.Implementations
             }
             else
             {
-                return new { mensaje = "No se pudo guardar la categoría." };
+                throw new NotFoundCoreException($"No se pudo guardar la categoría");
+                
             }
         }
 

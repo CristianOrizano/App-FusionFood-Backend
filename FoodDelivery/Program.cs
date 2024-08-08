@@ -104,6 +104,7 @@ builder.Services.AddAuthentication(options =>
 //__________ Config Swagger para incluir info sobre la autenticación en la documentación generada
 builder.Services.AddSwaggerGen(options =>
 {
+    //filtro que indica que Endp Requieren Auth
     options.OperationFilter<AuthorizeOperationFilter>(); 
     string schemeName = "Bearer"; 
 
