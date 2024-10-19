@@ -51,6 +51,14 @@ namespace FoodDelivery.Controllers
             var response = await _foodService.CreateAsync(save);
             return TypedResults.CreatedAtRoute(response);
         }
+        [HttpPost("FoodCategoria")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(FoodCategoriaSave))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public async Task<ActionResult<object>> categoriaFood([FromBody] FoodCategoriaSave save)
+        {
+
+            return await _foodService.guadarFoodWithCategoria(save);
+        }
 
         // PUT api/<FoodMenuController>/5
         [HttpPut("{id}")]

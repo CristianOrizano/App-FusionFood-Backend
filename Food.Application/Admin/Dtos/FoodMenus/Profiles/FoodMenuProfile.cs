@@ -17,6 +17,8 @@ namespace Food.Application.Admin.Dtos.FoodMenus.Profiles
 
             CreateMap<FoodMenu,FoodMenuDto>();
             CreateMap<FoodMenu, FoodMenuSaveDto>().ReverseMap();
+
+            CreateMap<FoodCategoriaSave, FoodMenu>();
             //pagination
             CreateMap<PagedResult<FoodMenu>, PageResponse<FoodMenuDto>>();
         }    

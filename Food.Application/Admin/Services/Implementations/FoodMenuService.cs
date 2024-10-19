@@ -7,6 +7,7 @@ using Food.Domain.Admin.Models;
 using Food.Domain.Admin.Repository;
 using Food.Domain.Core.Models;
 using Food.Infraestructura.Admin.Persistences;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -132,6 +133,23 @@ namespace Food.Application.Admin.Services.Implementations
                 // throw InvesmentNotFound(id);
             }
             return _mapper.Map<FoodMenuDto>(foodMenu);
+        }
+
+        public async Task<ActionResult<object>> guadarFoodWithCategoria(FoodCategoriaSave save)
+        {
+            FoodMenu food = _mapper.Map<FoodMenu>(save);
+            food.Estado = true;
+            food.Categoria.Estado=true;
+            FoodMenu foodSave = await _foodRepository.SaveAsync(food);
+            if (foodSave != null)
+            {
+                return new { mensaje = "Se ha guardado correctamente." };
+            }
+            else
+            {
+                throw new NotFoundCoreException($"No se pudo guardar la categoría");
+
+            }
         }
     }
 }
